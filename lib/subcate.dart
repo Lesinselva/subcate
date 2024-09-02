@@ -13,7 +13,7 @@ class Subcate extends StatefulWidget {
   final Color color;
   final String title;
 
-  Subcate({
+  const Subcate({
     super.key,
     this.firstButtonIcon,
     this.firstButtonText,
@@ -130,7 +130,7 @@ class _SubcateState extends State<Subcate> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Inventory', style: TextStyle(fontSize: 13)),
+            Text(widget.title, style: const TextStyle(fontSize: 13)),
             Text('Total items: $_totalItems',
                 style: const TextStyle(fontSize: 8, color: Colors.grey)),
           ],
