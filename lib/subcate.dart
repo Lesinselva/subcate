@@ -169,8 +169,8 @@ class _SubcateState extends State<Subcate> {
                                 Navigator.of(context).pop();
                               },
                               icon: Icons.category,
-                              title: 'Add Category',
-                              subtitle: 'Category title',
+                              title: 'Add Subcategory',
+                              subtitle: 'Subcategory title',
                               firstButtonLabel: 'Create',
                               firstButtonColor:
                                   const Color.fromARGB(255, 39, 236, 22),
