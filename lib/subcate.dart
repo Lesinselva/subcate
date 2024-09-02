@@ -11,7 +11,7 @@ class Subcate extends StatefulWidget {
   final IconData secButtonIcon;
   final String secButtonText;
   final Color color;
-  String title;
+  final String title;
 
   Subcate({
     super.key,
@@ -36,7 +36,6 @@ class _SubcateState extends State<Subcate> {
       setState(() {
         containers.add(buildCategoryContainer(title));
         _totalItems++;
-        widget.title = title;
       });
     }
   }
