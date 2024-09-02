@@ -127,18 +127,12 @@ class _SubcateState extends State<Subcate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.arrow_back),
-            const SizedBox(width: 3),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Inventory', style: TextStyle(fontSize: 13)),
-                Text('Total items: $_totalItems',
-                    style: const TextStyle(fontSize: 8, color: Colors.grey)),
-              ],
-            ),
+            const Text('Inventory', style: TextStyle(fontSize: 13)),
+            Text('Total items: $_totalItems',
+                style: const TextStyle(fontSize: 8, color: Colors.grey)),
           ],
         ),
       ),
