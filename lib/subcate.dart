@@ -131,20 +131,35 @@ class _SubcateState extends State<Subcate> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(widget.title, style: const TextStyle(fontSize: 13)),
-            Text('Total items: $_totalItems',
-                style: const TextStyle(fontSize: 8, color: Colors.grey)),
+            Text(
+              'Total items: $_totalItems',
+              style: const TextStyle(fontSize: 8, color: Colors.grey),
+            ),
           ],
         ),
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: containers.length,
-              itemBuilder: (context, index) {
-                return containers[index];
-              },
-            ),
+            child: containers.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/your_empty_image.png',
+                            height: 150), // Replace with your empty state image
+                        const SizedBox(height: 20),
+                        const Text('No items available',
+                            style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: containers.length,
+                    itemBuilder: (context, index) {
+                      return containers[index];
+                    },
+                  ),
           ),
           Container(
             color: const Color.fromARGB(0, 255, 193, 7),
