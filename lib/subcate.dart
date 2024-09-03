@@ -6,18 +6,14 @@ import 'package:net_store/mian.dart';
 import 'cos_container.dart';
 
 class Subcate extends StatefulWidget {
-  final IconData? firstButtonIcon;
   final String? firstButtonText;
-  final IconData secButtonIcon;
   final String secButtonText;
   final Color color;
   final String title;
 
   const Subcate({
     super.key,
-    this.firstButtonIcon,
     this.firstButtonText,
-    required this.secButtonIcon,
     required this.secButtonText,
     required this.color,
     required this.title,
@@ -58,7 +54,6 @@ class _SubcateState extends State<Subcate> {
               context,
               MaterialPageRoute(
                 builder: (context) => Subcate(
-                  secButtonIcon: Icons.add_box,
                   secButtonText: 'Add Product',
                   color: Colors.black,
                   title: title,
@@ -73,7 +68,11 @@ class _SubcateState extends State<Subcate> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.category),
+                    Image.asset(
+                      'lib/image/category.png',
+                      package: 'inventory',
+                      height: 35,
+                    ),
                     const SizedBox(width: 6),
                     Text(title, style: const TextStyle(fontSize: 18)),
                   ],
@@ -105,7 +104,11 @@ class _SubcateState extends State<Subcate> {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const Icon(Icons.add_box, size: 30),
+                Image.asset(
+                  'lib/image/image.png',
+                  package: 'inventory',
+                  height: 40,
+                ),
                 const SizedBox(width: 6),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,8 +149,8 @@ class _SubcateState extends State<Subcate> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/your_empty_image.png',
-                            height: 150), // Replace with your empty state image
+                        Image.asset('lib/image/file.png',
+                            package: 'inventory', height: 150),
                         const SizedBox(height: 20),
                         const Text('No items available',
                             style: TextStyle(fontSize: 18)),
@@ -167,8 +170,7 @@ class _SubcateState extends State<Subcate> {
             width: double.infinity,
             child: Row(
               children: [
-                if (widget.firstButtonText != null &&
-                    widget.firstButtonIcon != null)
+                if (widget.firstButtonText != null)
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -215,7 +217,8 @@ class _SubcateState extends State<Subcate> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(widget.firstButtonIcon),
+                            Image.asset('lib/image/addcate.png',
+                                package: 'inventory', height: 24),
                             Text(
                               widget.firstButtonText!,
                               style: const TextStyle(
@@ -288,7 +291,8 @@ class _SubcateState extends State<Subcate> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(widget.secButtonIcon, color: Colors.white),
+                          Image.asset('lib/image/addproduct.png',
+                              package: 'inventory', height: 24),
                           Text(
                             widget.secButtonText,
                             style: const TextStyle(
