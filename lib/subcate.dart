@@ -1,9 +1,11 @@
 library subcate;
 
+import 'package:animatedfloat/animatedfloat.dart';
 import 'package:custom_dialog/custom_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:net_store/mian.dart';
-import 'cos_container.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Subcate extends StatefulWidget {
   final String? firstButtonText;
@@ -25,13 +27,12 @@ class Subcate extends StatefulWidget {
 
 class _SubcateState extends State<Subcate> {
   final List<Widget> containers = [];
-  int _totalItems = 0;
+  final ScrollController scrollController = ScrollController();
 
   void addCategoryContainer(String title) {
     if (title.isNotEmpty) {
       setState(() {
         containers.add(buildCategoryContainer(title));
-        _totalItems++;
       });
     }
   }
@@ -40,7 +41,6 @@ class _SubcateState extends State<Subcate> {
     if (title.isNotEmpty && price.isNotEmpty) {
       setState(() {
         containers.add(buildProductContainer(title, price, context));
-        _totalItems++;
       });
     }
   }
@@ -61,20 +61,26 @@ class _SubcateState extends State<Subcate> {
               ),
             );
           },
-          child: CosContainer(
+          child: Container(
             padding: const EdgeInsets.all(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      'lib/image/category.png',
+                    SvgPicture.asset(
+                      'lib/images/category.svg',
                       package: 'inventory',
-                      height: 35,
+                      width: 33,
+                      height: 33,
                     ),
-                    const SizedBox(width: 6),
-                    Text(title, style: const TextStyle(fontSize: 18)),
+                    const SizedBox(width: 12),
+                    Text(title,
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400))),
                   ],
                 ),
                 const Icon(Icons.more_vert)
@@ -100,23 +106,23 @@ class _SubcateState extends State<Subcate> {
               ),
             );
           },
-          child: CosContainer(
+          child: Container(
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                Image.asset(
-                  'lib/image/image.png',
+                SvgPicture.asset(
+                  'lib/images/product.svg',
                   package: 'inventory',
-                  height: 40,
+                  height: 33,
+                  width: 33,
                 ),
-                const SizedBox(width: 6),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: const TextStyle(fontSize: 18)),
-                    Text('₹$price', style: const TextStyle(fontSize: 16)),
-                  ],
-                ),
+                const SizedBox(width: 12),
+                Text(title,
+                    style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300))),
               ],
             ),
           ),
@@ -129,111 +135,41 @@ class _SubcateState extends State<Subcate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: Stack(
+      children: [
+        Column(
           children: [
-            Text(widget.title, style: const TextStyle(fontSize: 13)),
-            Text(
-              'Total items: $_totalItems',
-              style: const TextStyle(fontSize: 8, color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: containers.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('lib/image/file.png',
-                            package: 'inventory', height: 150),
-                        const SizedBox(height: 20),
-                        const Text('No items available',
-                            style: TextStyle(fontSize: 18)),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: containers.length,
-                    itemBuilder: (context, index) {
-                      return containers[index];
-                    },
-                  ),
-          ),
-          Container(
-            color: const Color.fromARGB(0, 255, 193, 7),
-            height: 55,
-            width: double.infinity,
-            child: Row(
-              children: [
-                if (widget.firstButtonText != null)
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            final firstFieldController =
-                                TextEditingController();
-                            return CustomDialog(
-                              firstButtonIcon: Icons.check,
-                              secondButtonIcon: Icons.close,
-                              secondButtonAction: () {
-                                Navigator.of(context).pop();
-                              },
-                              icon: Icons.category,
-                              title: 'Add Subcategory',
-                              subtitle: 'Subcategory title',
-                              firstButtonLabel: 'Create',
-                              firstButtonColor:
-                                  const Color.fromARGB(255, 39, 236, 22),
-                              firstButtonAction: (String title) {
-                                addCategoryContainer(title);
-                                Navigator.of(context).pop();
-                              },
-                              secondButtonLabel: 'Cancel',
-                              secondButtonColor: Colors.red,
-                              firstFieldController: firstFieldController,
-                              maxLength: 32,
-                              titleBackgroundGradient: const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.fromARGB(255, 251, 255, 26),
-                                  Color.fromARGB(255, 136, 127, 1),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      child: Container(
-                        height: 55,
-                        color: const Color.fromARGB(0, 255, 255, 255),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('lib/image/addcate.png',
-                                package: 'inventory', height: 24),
-                            Text(
-                              widget.firstButtonText!,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: containers.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      containers[index],
+                      if (index != containers.length - 1)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Divider(
+                            thickness: 1,
+                            height: 1,
+                            color: Color(0x7704938D),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                Expanded(
-                  child: GestureDetector(
+                    ],
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  CustomAnimatedFloatingActionButton(
+                    svgPath: 'lib/images/addProduct.svg',
+                    package: 'inventory',
+                    text: 'Add product',
                     onTap: () {
                       showDialog(
                         context: context,
@@ -276,41 +212,58 @@ class _SubcateState extends State<Subcate> {
                         },
                       );
                     },
-                    child: Container(
-                      height: 55,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 45, 255, 26),
-                            Color.fromARGB(255, 1, 136, 57),
-                          ],
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('lib/image/addproduct.png',
-                              package: 'inventory', height: 24),
-                          Text(
-                            widget.secButtonText,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    scrollController: scrollController,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  CustomAnimatedFloatingActionButton(
+                    svgPath: 'lib/images/addCate.svg',
+                    package: 'inventory',
+                    text: 'Add Category',
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          final firstFieldController = TextEditingController();
+                          return CustomDialog(
+                            firstButtonIcon: Icons.check,
+                            secondButtonIcon: Icons.close,
+                            secondButtonAction: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icons.category,
+                            title: 'Add Category',
+                            subtitle: 'Category title',
+                            firstButtonLabel: 'Create',
+                            firstButtonColor:
+                                const Color.fromARGB(255, 39, 236, 22),
+                            firstButtonAction: (String title) {
+                              addCategoryContainer(title);
+                              Navigator.of(context).pop();
+                            },
+                            secondButtonLabel: 'Cancel',
+                            secondButtonColor: Colors.red,
+                            firstFieldController: firstFieldController,
+                            maxLength: 32,
+                            titleBackgroundGradient: const LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color.fromARGB(255, 251, 255, 26),
+                                Color.fromARGB(255, 136, 127, 1),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    scrollController: scrollController,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      ],
+    ));
   }
 }
