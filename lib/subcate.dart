@@ -132,13 +132,13 @@ class _SubcateState extends State<Subcate> {
       appBar: AppBar(
         title: Row(
           children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            const SizedBox(width: 8),
+            // IconButton(
+            //   icon: const Icon(Icons.arrow_back),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            // const SizedBox(width: 8),
             Text(widget.title,
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
