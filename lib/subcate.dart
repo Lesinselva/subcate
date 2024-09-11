@@ -4,15 +4,18 @@ import 'package:animatedfloat/animatedfloat.dart';
 import 'package:custom_dialog/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:insubcate/insubcate.dart';
 import 'package:net_store/mian.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Subcate extends StatefulWidget {
   final Color color;
+  final String title;
 
   const Subcate({
     super.key,
     required this.color,
+    required this.title,
   });
 
   @override
@@ -47,8 +50,9 @@ class _SubcateState extends State<Subcate> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const Subcate(
+                builder: (context) => Insubcate(
                   color: Colors.black,
+                  title: title,
                 ),
               ),
             );
@@ -62,7 +66,7 @@ class _SubcateState extends State<Subcate> {
                   children: [
                     SvgPicture.asset(
                       'lib/images/category.svg',
-                      package: 'inventory',
+                      package: 'subcate',
                       width: 33,
                       height: 33,
                     ),
@@ -125,6 +129,26 @@ class _SubcateState extends State<Subcate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const SizedBox(width: 8),
+            Text(widget.title,
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           Column(
