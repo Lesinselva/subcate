@@ -8,17 +8,11 @@ import 'package:net_store/mian.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Subcate extends StatefulWidget {
-  final String? firstButtonText;
-  final String secButtonText;
   final Color color;
-  final String title;
 
   const Subcate({
     super.key,
-    this.firstButtonText,
-    required this.secButtonText,
     required this.color,
-    required this.title,
   });
 
   @override
@@ -53,10 +47,8 @@ class _SubcateState extends State<Subcate> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Subcate(
-                  secButtonText: 'Add Product',
+                builder: (context) => const Subcate(
                   color: Colors.black,
-                  title: title,
                 ),
               ),
             );
@@ -74,11 +66,11 @@ class _SubcateState extends State<Subcate> {
                       width: 33,
                       height: 33,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16),
                     Text(title,
                         style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 14,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400))),
                   ],
@@ -88,7 +80,6 @@ class _SubcateState extends State<Subcate> {
             ),
           ),
         ),
-        const SizedBox(height: 2),
       ],
     );
   }
@@ -112,22 +103,21 @@ class _SubcateState extends State<Subcate> {
               children: [
                 SvgPicture.asset(
                   'lib/images/product.svg',
-                  package: 'inventory',
+                  package: 'subcate',
                   height: 33,
                   width: 33,
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 16),
                 Text(title,
                     style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 14,
                             color: Colors.black,
                             fontWeight: FontWeight.w300))),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 2),
       ],
     );
   }
@@ -135,135 +125,119 @@ class _SubcateState extends State<Subcate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: containers.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      containers[index],
-                      if (index != containers.length - 1)
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1,
-                            height: 1,
-                            color: Color(0x7704938D),
-                          ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: containers.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        containers[index],
+                        //  if (index != containers.length - 1)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: Color(0xFFF4F4F4),
                         ),
-                    ],
-                  );
-                },
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  CustomAnimatedFloatingActionButton(
-                    svgPath: 'lib/images/addProduct.svg',
-                    package: 'inventory',
-                    text: 'Add product',
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          final firstFieldController = TextEditingController();
-                          final secondFieldController = TextEditingController();
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                CustomAnimatedFloatingActionButton(
+                  svgPath: 'lib/images/addProduct.svg',
+                  package: 'subcate',
+                  text: 'Add product',
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        final firstFieldController = TextEditingController();
+                        final secondFieldController = TextEditingController();
 
-                          return CustomDialog(
-                            icon: Icons.note_alt_outlined,
-                            secicon: Icons.currency_rupee,
-                            title: 'Add Product',
-                            subtitle: 'Product title',
-                            firstButtonLabel: 'Create',
-                            firstButtonColor:
-                                const Color.fromARGB(255, 39, 236, 22),
-                            firstButtonAction: (String title) {
-                              _addProductContainer(
-                                  title, secondFieldController.text);
-                              Navigator.of(context).pop();
-                            },
-                            secondButtonLabel: 'Cancel',
-                            secondButtonColor: Colors.red,
-                            firstFieldController: firstFieldController,
-                            secondFieldController: secondFieldController,
-                            maxLength: 100,
-                            titleBackgroundGradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color.fromARGB(255, 45, 255, 26),
-                                Color.fromARGB(255, 1, 136, 57),
-                              ],
-                            ),
-                            firstButtonIcon: Icons.check,
-                            secondButtonIcon: Icons.close,
-                            secondButtonAction: () {
-                              Navigator.of(context).pop();
-                            },
-                          );
-                        },
-                      );
-                    },
-                    scrollController: scrollController,
-                  ),
-                  const SizedBox(height: 16),
-                  CustomAnimatedFloatingActionButton(
-                    svgPath: 'lib/images/addCate.svg',
-                    package: 'inventory',
-                    text: 'Add Category',
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          final firstFieldController = TextEditingController();
-                          return CustomDialog(
-                            firstButtonIcon: Icons.check,
-                            secondButtonIcon: Icons.close,
-                            secondButtonAction: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icons.category,
-                            title: 'Add Category',
-                            subtitle: 'Category title',
-                            firstButtonLabel: 'Create',
-                            firstButtonColor:
-                                const Color.fromARGB(255, 39, 236, 22),
-                            firstButtonAction: (String title) {
-                              addCategoryContainer(title);
-                              Navigator.of(context).pop();
-                            },
-                            secondButtonLabel: 'Cancel',
-                            secondButtonColor: Colors.red,
-                            firstFieldController: firstFieldController,
-                            maxLength: 32,
-                            titleBackgroundGradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color.fromARGB(255, 251, 255, 26),
-                                Color.fromARGB(255, 136, 127, 1),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    scrollController: scrollController,
-                  ),
-                ],
-              ),
+                        return CustomDialog(
+                          secicon: Icons.currency_rupee,
+                          title: 'Add Product',
+                          firstButtonColor: Colors.white,
+                          firstButtonIconColor: const Color(0xFF03A758),
+                          firstButtonAction: (String title) {
+                            _addProductContainer(
+                                title, secondFieldController.text);
+                            Navigator.of(context).pop();
+                          },
+                          secondButtonColor: Colors.white,
+                          firstFieldController: firstFieldController,
+                          secondFieldController: secondFieldController,
+                          maxLength: 100,
+                          titleBackgroundColor: const Color(0x7704938D),
+                          secondButtonIconColor: const Color(0xFFFF1C1C),
+                          firstButtonIcon: Icons.check,
+                          secondButtonIcon: Icons.close,
+                          secondButtonAction: () {
+                            Navigator.of(context).pop();
+                          },
+                          hintText: 'Product Title',
+                          hintText2: 'Selling price',
+                        );
+                      },
+                    );
+                  },
+                  scrollController: scrollController,
+                ),
+                const SizedBox(height: 16),
+                CustomAnimatedFloatingActionButton(
+                  svgPath: 'lib/images/addCate.svg',
+                  package: 'subcate',
+                  text: 'Add Subcategory',
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        final firstFieldController = TextEditingController();
+                        return CustomDialog(
+                          firstButtonIcon: Icons.check,
+                          secondButtonIcon: Icons.close,
+                          firstButtonIconColor: const Color(0xFF03A758),
+                          secondButtonIconColor: const Color(0xFFFF1C1C),
+                          secondButtonAction: () {
+                            Navigator.of(context).pop();
+                          },
+                          title: 'Add Subcategory',
+                          subtitle: 'Enter a Title for subcategroy',
+                          firstButtonAction: (String title) {
+                            addCategoryContainer(title);
+                            Navigator.of(context).pop();
+                          },
+                          secondButtonColor: Colors.white,
+                          firstFieldController: firstFieldController,
+                          maxLength: 32,
+                          titleBackgroundColor: const Color(0x7704938D),
+                          hintText: 'Subcategroy Title',
+                          hintText2: 'Selling price',
+                          firstButtonColor: Colors.white,
+                        );
+                      },
+                    );
+                  },
+                  scrollController: scrollController,
+                ),
+              ],
             ),
-          ],
-        ),
-      ],
-    ));
+          ),
+        ],
+      ),
+    );
   }
 }
