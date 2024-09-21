@@ -47,7 +47,7 @@ class _SubcateState extends State<Subcate> {
   Widget buildCategoryContainer(String title) {
     return Column(
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
             Navigator.push(
               context,
@@ -95,7 +95,7 @@ class _SubcateState extends State<Subcate> {
       String title, String price, BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
             Navigator.push(
               context,
