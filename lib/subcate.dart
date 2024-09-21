@@ -82,7 +82,10 @@ class _SubcateState extends State<Subcate> {
                                 fontWeight: FontWeight.w400))),
                   ],
                 ),
-                const Icon(Icons.more_vert)
+                IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () {},
+                )
               ],
             ),
           ),
