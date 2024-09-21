@@ -11,11 +11,13 @@ import 'package:flutter_svg/svg.dart';
 class Subcate extends StatefulWidget {
   final Color color;
   final String title;
+  final Color scaffoldColor;
 
   const Subcate({
     super.key,
     required this.color,
     required this.title,
+    required this.scaffoldColor,
   });
 
   @override
@@ -53,6 +55,7 @@ class _SubcateState extends State<Subcate> {
                 builder: (context) => Insubcate(
                   color: Colors.black,
                   title: title,
+                  scaffoldColor: widget.scaffoldColor,
                 ),
               ),
             );
@@ -129,6 +132,7 @@ class _SubcateState extends State<Subcate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: widget.scaffoldColor,
       appBar: AppBar(
         title: Row(
           children: [
