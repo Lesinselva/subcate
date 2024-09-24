@@ -137,10 +137,7 @@ class _SubcateState extends State<Subcate> {
     return Scaffold(
       backgroundColor: widget.scaffoldColor,
       appBar: AppBar(
-        shadowColor: Colors.white,
-        elevation: 1.0,
-        backgroundColor: Colors.teal.shade50,
-        titleSpacing: 5,
+        backgroundColor: widget.scaffoldColor,
         title: Row(
           children: [
             // IconButton(
@@ -158,6 +155,16 @@ class _SubcateState extends State<Subcate> {
                   ),
                 )),
           ],
+        ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Color(0xFFDBDBDB),
+                width: 1,
+              ),
+            ),
+          ),
         ),
       ),
       body: Stack(
