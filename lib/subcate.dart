@@ -75,7 +75,7 @@ class _SubcateState extends State<Subcate> {
                     ),
                     const SizedBox(width: 16),
                     Text(title,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                             textStyle: const TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
@@ -137,6 +137,10 @@ class _SubcateState extends State<Subcate> {
     return Scaffold(
       backgroundColor: widget.scaffoldColor,
       appBar: AppBar(
+        shadowColor: Colors.white,
+        elevation: 1.0,
+        backgroundColor: Colors.teal.shade50,
+        titleSpacing: 5,
         title: Row(
           children: [
             // IconButton(
